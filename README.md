@@ -16,6 +16,8 @@ set the `$KISS_HOOK` variable pointing to this script.
 If you don't want to put this script to the hook directory, you can set the
 environment variable `$KISS_HOOK_DIR` pointing to that directory.
 
+Same applies for the `cpt-hook` file and the hook variables.
+
 
 Setting up hooks
 ----------------
