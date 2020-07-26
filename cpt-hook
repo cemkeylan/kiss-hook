@@ -1,0 +1,22 @@
+#!/bin/sh -e
+# shellcheck disable=1090
+# A directory based cpt-hook manager.
+
+# We don't want the package manager to exit because of an error here.
+set +e
+
+hook() {
+    [ -e "${CPT_HOOK_DIR:=${CPT_HOOK%/*}}/$TYPE" ] || return 0
+    [ -e "$CPT_HOOK_DIR/lib" ] && . "$CPT_HOOK_DIR/lib"
+
+    [ -d "$CPT_HOOK_DIR/$TYPE" ] || {
+        . "$CPT_HOOK_DIR/$TYPE"
+        return
+    }
+
+    [ -f "$CPT_HOOK_DIR/$TYPE/$TYPE" ] && . "$CPT_HOOK_DIR/$TYPE/$TYPE"
+    [ -f "$CPT_HOOK_DIR/$TYPE/$PKG"  ] && . "$CPT_HOOK_DIR/$TYPE/$PKG"
+}
+
+hook
+set -e
