@@ -51,3 +51,7 @@ Here is an example structure:
     │   └── linux
     ├── pre-build
     └── pre-fetch
+
+See [my personal repository] for a better example on the hooks.
+
+[my personal repository]: https://github.com/cemkeylan/hooks
