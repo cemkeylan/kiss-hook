@@ -2,9 +2,6 @@
 # shellcheck disable=1090
 # A directory based kiss-hook manager.
 
-# We don't want the package manager to exit because of an error here.
-set +e
-
 hook() {
     [ -e "${KISS_HOOK_DIR:=${KISS_HOOK%/*}}/$TYPE" ] || return 0
     [ -e "$KISS_HOOK_DIR/lib" ] && . "$KISS_HOOK_DIR/lib"
@@ -16,7 +13,10 @@ hook() {
 
     [ -f "$KISS_HOOK_DIR/$TYPE/$TYPE" ] && . "$KISS_HOOK_DIR/$TYPE/$TYPE"
     [ -f "$KISS_HOOK_DIR/$TYPE/$PKG"  ] && . "$KISS_HOOK_DIR/$TYPE/$PKG"
+
+    # We are returning with success, since the package manager already exits
+    # with in an error caused by the hooks.
+    return 0
 }
 
 hook
-set -e
